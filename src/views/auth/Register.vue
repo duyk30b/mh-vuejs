@@ -1,26 +1,27 @@
 <template>
 	<div>
 		<div>
-			<input v-model="username" />
-		</div>
-		<div>
-			<input v-model="phone" />
-		</div>
-		<div>
+			<label for="">Email: </label>
 			<input v-model="email" />
 		</div>
 		<div>
+			<label for="">Phone: </label>
+			<input v-model="phone" />
+		</div>
+
+		<div>
+			<label for="">Password: </label>
 			<input v-model="password" />
 		</div>
 		<div>
-			<button v-on:click="startLogin">Start Login</button>
+			<button v-on:click="startLogin">Start Register</button>
 		</div>
 		<div v-if="signInLoading" class="loader"></div>
 		<div>
 			<p>{{ errorMessage }}</p>
 		</div>
 		<div>
-			<a v-on:click="$router.push({ name: 'Login' })">Login</a>
+			<a v-on:click="$router.push({ name: 'Login' })">Login Link</a>
 		</div>
 	</div>
 </template>
@@ -33,7 +34,6 @@ export default {
 	setup() {
 		const router = useRouter()
 		const authStore = useAuthStore()
-		const username = ref('')
 		const password = ref('')
 		const phone = ref('')
 		const email = ref('')
@@ -44,7 +44,6 @@ export default {
 			try {
 				signInLoading.value = true
 				await authStore.register({
-					username: username.value,
 					password: password.value,
 					phone: phone.value,
 					email: email.value,
@@ -57,7 +56,7 @@ export default {
 				signInLoading.value = false
 			}
 		}
-		return { username, phone, password, email, startLogin, signInLoading, errorMessage }
+		return { phone, password, email, startLogin, signInLoading, errorMessage }
 	},
 }
 </script>

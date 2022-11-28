@@ -1,9 +1,19 @@
 <template>
 	<div>
 		<div>
+			<label for="">Clinic Code: </label>
+			<input v-model="clinicCode" />
+		</div>
+		<div>
+			<label for="">Username: </label>
 			<input v-model="username" />
 		</div>
 		<div>
+			<label for="">Email: </label>
+			<input v-model="email" />
+		</div>
+		<div>
+			<label for="">Password: </label>
 			<input v-model="password" />
 		</div>
 		<div>
@@ -14,7 +24,7 @@
 			<p>{{ errorMessage }}</p>
 		</div>
 		<div>
-			<a v-on:click="$router.push({ name: 'Register' })">Register</a>
+			<a v-on:click="$router.push({ name: 'Register' })">Register Link</a>
 		</div>
 	</div>
 </template>
@@ -27,6 +37,8 @@ export default {
 	setup() {
 		const router = useRouter()
 		const authStore = useAuthStore()
+		const clinicCode = ref('')
+		const email = ref('')
 		const username = ref('')
 		const password = ref('')
 		const signInLoading = ref(false)
@@ -36,7 +48,9 @@ export default {
 			try {
 				signInLoading.value = true
 				await authStore.login({
+					clinicCode: clinicCode.value,
 					username: username.value,
+					email: email.value,
 					password: password.value,
 				})
 				router.push({ name: 'Dashboard', params: {} })
@@ -47,7 +61,7 @@ export default {
 				signInLoading.value = false
 			}
 		}
-		return { username, password, startLogin, signInLoading, errorMessage }
+		return { clinicCode, username, email, password, startLogin, signInLoading, errorMessage }
 	},
 }
 </script>

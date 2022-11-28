@@ -6,13 +6,14 @@ type UserInfo = {
 	role: string;
 } | null
 
-type LoginData = {
-	username: string;
+type LoginDto = {
+	clinicCode?: string;
+	username?: string;
+	email?: string;
 	password: string;
 }
 
-type RegisterData = {
-	username: string;
+type RegisterDto = {
 	password: string;
 	email: string;
 	phone: string;
@@ -24,7 +25,7 @@ type LoginResponse = {
 }
 
 type RegisterResponse = {
-	user: UserInfo;
+	email: UserInfo;
 	refeshToken: string;
 }
 
@@ -34,12 +35,12 @@ export const useAuthStore = defineStore('auth-store', {
 		error: null,
 	}),
 	actions: {
-		async login(credentials: LoginData) {
+		async login(credentials: LoginDto) {
 			try {
 				const data = await new Promise<LoginResponse>((resolve, reject) => {
 					setTimeout(() => {
 						resolve({
-							user: { username: credentials.username, role: 'admin' },
+							user: { username: credentials.username || '', role: 'admin' },
 							refeshToken: new Date().toString(),
 						})
 					}, 500)
@@ -52,19 +53,20 @@ export const useAuthStore = defineStore('auth-store', {
 				this.error = error
 			}
 		},
-		async register(credentials: RegisterData) {
+
+		async register(credentials: RegisterDto) {
 			try {
 				const data = await new Promise<RegisterResponse>((resolve, reject) => {
 					setTimeout(() => {
 						resolve({
-							user: { username: credentials.username, role: 'admin' },
+							email: { username: credentials.email || '', role: 'admin' },
 							refeshToken: new Date().toString(),
 						})
 					}, 500)
 				})
 				console.log(data)
 				JwtService.saveRefeshToken(data.refeshToken)
-				this.userInfo = data.user
+				this.userInfo = data.email
 			} catch (error: any) {
 				this.userInfo = null
 				this.error = error
