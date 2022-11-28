@@ -34,9 +34,9 @@ export default {
 	setup() {
 		const router = useRouter()
 		const authStore = useAuthStore()
-		const password = ref('')
-		const phone = ref('')
-		const email = ref('')
+		const email = ref('example@gmail.com')
+		const password = ref('Abc@123456')
+		const phone = ref('0368123456')
 		const signInLoading = ref(false)
 		const errorMessage = ref('')
 

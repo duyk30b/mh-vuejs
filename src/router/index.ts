@@ -1,3 +1,4 @@
+import { useAuthStore } from '@/stores/auth.store'
 import { createRouter, createWebHistory } from 'vue-router'
 
 enum AuthMiddlewareConst {
@@ -39,11 +40,11 @@ const router = createRouter({
 })
 
 router.beforeEach((to, from, next) => {
-	if (to.meta.auth === AuthMiddlewareConst.AUTH) {
+	const authStore = useAuthStore()
+
+	if (to.meta.auth === AuthMiddlewareConst.AUTH && !authStore.userInfo) {
 		return next({ name: 'Login' })
-	} else {
-		next()
-	}
+	} else next()
 })
 
 export default router

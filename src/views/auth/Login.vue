@@ -37,10 +37,10 @@ export default {
 	setup() {
 		const router = useRouter()
 		const authStore = useAuthStore()
-		const clinicCode = ref('')
-		const email = ref('')
-		const username = ref('')
-		const password = ref('')
+		const clinicCode = ref('1')
+		const email = ref('example@gmail.com')
+		const username = ref('Admin')
+		const password = ref('Abc@123456')
 		const signInLoading = ref(false)
 		const errorMessage = ref('')
 

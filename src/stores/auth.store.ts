@@ -1,9 +1,14 @@
-import JwtService from '@/service/jwt.service'
+import CONFIG from '@/config'
+import axios from 'axios'
 import { defineStore } from 'pinia'
+import TokenService from '../service/token.service'
+import type { IAuthTokens } from '../service/token.service'
 
-type UserInfo = {
+export type UserInfo = {
 	username: string;
 	role: string;
+	uid: number;
+	cid: number;
 } | null
 
 type LoginDto = {
@@ -19,61 +24,41 @@ type RegisterDto = {
 	phone: string;
 }
 
-type LoginResponse = {
-	user: UserInfo;
-	refeshToken: string;
-}
-
-type RegisterResponse = {
-	email: UserInfo;
-	refeshToken: string;
-}
-
 export const useAuthStore = defineStore('auth-store', {
 	state: () => ({
-		userInfo: null as UserInfo,
+		userInfo: TokenService.getDataAccessToken(),
 		error: null,
 	}),
 	actions: {
 		async login(credentials: LoginDto) {
 			try {
-				const data = await new Promise<LoginResponse>((resolve, reject) => {
-					setTimeout(() => {
-						resolve({
-							user: { username: credentials.username || '', role: 'admin' },
-							refeshToken: new Date().toString(),
-						})
-					}, 500)
-				})
-				console.log(data)
-				JwtService.saveRefeshToken(data.refeshToken)
-				this.userInfo = data.user
+				const response = await axios.post(`${CONFIG.API_URL}/auth/login`, credentials)
+				const data = response.data as IAuthTokens
+				TokenService.setTokens(data)
+				this.userInfo = TokenService.getDataAccessToken()
+				this.error = null
 			} catch (error: any) {
 				this.userInfo = null
-				this.error = error
+				this.error = error.response.data
+				throw new Error(error.response.data.message)
 			}
 		},
 
 		async register(credentials: RegisterDto) {
 			try {
-				const data = await new Promise<RegisterResponse>((resolve, reject) => {
-					setTimeout(() => {
-						resolve({
-							email: { username: credentials.email || '', role: 'admin' },
-							refeshToken: new Date().toString(),
-						})
-					}, 500)
-				})
-				console.log(data)
-				JwtService.saveRefeshToken(data.refeshToken)
-				this.userInfo = data.email
+				const response = await axios.post(`${CONFIG.API_URL}/auth/register`, credentials)
+				const data = response.data as IAuthTokens
+				TokenService.setTokens(data)
+				this.userInfo = TokenService.getDataAccessToken()
+				this.error = null
 			} catch (error: any) {
 				this.userInfo = null
-				this.error = error
+				this.error = error.response.data
+				throw new Error(error.response.data.message)
 			}
 		},
 		async logout() {
-			JwtService.destroyRefreshToken()
+			TokenService.destroyTokens()
 			this.userInfo = null
 		},
 	},
