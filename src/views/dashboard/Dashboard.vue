@@ -1,15 +1,40 @@
 <template>
-	<div>
-		<DashboardHeader />
-		<h1>This is an dashboard page</h1>
+	<div class="wrapper">
+		<div class="sidebar">
+			<SidebarTop />
+			<TreeMenu />
+		</div>
+		<div class="main">
+			<HeaderTop />
+			<MainContent />
+		</div>
 	</div>
 </template>
 
 <script lang="ts">
-import DashboardHeader from '@/views/dashboard/DashboardHeader.vue'
+import HeaderTop from './HeaderTop.vue'
+import TreeMenu from './TreeMenu.vue'
+import SidebarTop from './SidebarTop.vue'
+import MainContent from './MainContent.vue'
 
-export default { components: { DashboardHeader } }
+export default { components: { HeaderTop, TreeMenu, SidebarTop, MainContent } }
 </script>
-<style>
+<style lang="scss" scoped>
+.wrapper {
+	display: flex;
+	height: 100vh;
 
+	.sidebar {
+		width: 300px;
+		display: flex;
+		flex-direction: column;
+	}
+
+	.main {
+		flex: 1;
+		display: flex;
+		flex-direction: column;
+		min-height: 100vh;
+	}
+}
 </style>
