@@ -12,16 +12,16 @@ export type UserInfo = {
 } | null
 
 type LoginDto = {
-	clinicCode?: string;
-	username?: string;
-	email?: string;
+	cPhone: string;
+	username: string;
 	password: string;
 }
 
 type RegisterDto = {
-	password: string;
-	email: string;
 	phone: string;
+	email: string;
+	username: string;
+	password: string;
 }
 
 export const useAuthStore = defineStore('auth-store', {

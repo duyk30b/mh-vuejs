@@ -1,29 +1,46 @@
 <template>
-	<div>
-		<div>
-			<label for="">Email: </label>
-			<input v-model="email" />
-		</div>
-		<div>
-			<label for="">Phone: </label>
-			<input v-model="phone" />
-		</div>
-
-		<div>
-			<label for="">Password: </label>
-			<input v-model="password" />
-		</div>
-		<div>
-			<button v-on:click="startLogin">Start Register</button>
-		</div>
-		<div v-if="signInLoading" class="loader"></div>
-		<div>
-			<p>{{ errorMessage }}</p>
-		</div>
-		<div>
-			<a v-on:click="$router.push({ name: 'Login' })">Login Link</a>
-		</div>
-	</div>
+	<v-app>
+		<v-main>
+			<v-container class="mt-16">
+				<v-row justify="center">
+					<v-col sm="12" md="8" lg="6">
+						<v-card elevation="6">
+							<v-toolbar dark color="indigo-darken-2">
+								<v-toolbar-title>Đăng ký tài khoản phòng khám mới</v-toolbar-title>
+							</v-toolbar>
+							<v-card-text>
+								<v-form class="mt-4">
+									<v-text-field v-model="phone" prepend-icon="mdi-phone-dial" color="indigo-darken-2"
+										label="SĐT Phòng khám" variant="underlined">
+									</v-text-field>
+									<v-text-field v-model="email" prepend-icon="mdi-email" color="indigo-darken-2"
+										label="Email Phòng khám" variant="underlined" type="email">
+									</v-text-field>
+									<v-text-field v-model="username" prepend-icon="mdi-account" label="Tên tài khoản"
+										variant="underlined">
+									</v-text-field>
+									<v-text-field v-model="password" prepend-icon="mdi-lock" label="Mật khẩu"
+										variant="underlined" type="password">
+									</v-text-field>
+									<div class="d-flex justify-end">
+										<v-btn @click="startRegister" :loading="signInLoading"
+											prepend-icon="mdi-login-variant" color="indigo-darken-2"> Đăng ký
+										</v-btn>
+									</div>
+									<p class="mt-6">Bạn đã có tài khoản phòng khám ?
+										<v-btn size="small" variant="outlined" @click="$router.push({ name: 'Login' })">
+											Đăng nhập
+										</v-btn>
+									</p>
+								</v-form>
+							</v-card-text>
+						</v-card>
+					</v-col>
+				</v-row>
+			</v-container>
+			<v-alert :model-value="alert" type="error" :text="errorMessage" density="compact"></v-alert>
+		</v-main>
+	</v-app>
 </template>
 <script lang="ts">
 import { ref } from 'vue'
@@ -34,49 +51,44 @@ export default {
 	setup() {
 		const router = useRouter()
 		const authStore = useAuthStore()
+
 		const email = ref('example@gmail.com')
-		const password = ref('Abc@123456')
 		const phone = ref('0368123456')
+		const username = ref('admin')
+		const password = ref('Abc@123456')
+
 		const signInLoading = ref(false)
 		const errorMessage = ref('')
+		const alert = ref(false)
 
-		const startLogin = async () => {
+		const startRegister = async () => {
 			try {
 				signInLoading.value = true
 				await authStore.register({
-					password: password.value,
 					phone: phone.value,
 					email: email.value,
+					username: username.value,
+					password: password.value,
 				})
 				router.push({ name: 'Dashboard', params: {} })
 			} catch (error: any) {
-				console.log('🚀 ~ file: Login.vue ~ line 29 ~ startLogin ~ error', error)
 				errorMessage.value = error.message
+				alert.value = true
+				setTimeout(() => {
+					alert.value = false
+				}, 5000)
 			} finally {
 				signInLoading.value = false
 			}
 		}
-		return { phone, password, email, startLogin, signInLoading, errorMessage }
+		return { phone, username, email, password, startRegister, signInLoading, errorMessage, alert }
 	},
 }
 </script>
-<style scoped>
-.loader {
-	border: 2px solid #f3f3f3;
-	border-radius: 50%;
-	border-top: 2px solid green;
-	width: 12px;
-	height: 12px;
-	animation: spin 0.5s linear infinite;
-}
-
-@keyframes spin {
-	0% {
-		transform: rotate(0deg);
-	}
-
-	100% {
-		transform: rotate(360deg);
-	}
+<style lang="scss" scoped>
+.v-alert {
+	position: fixed;
+	top: 20px;
+	right: 20px;
 }
 </style>

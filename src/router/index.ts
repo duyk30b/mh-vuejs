@@ -19,11 +19,6 @@ const router = createRouter({
 			path: '/auth',
 			children: [
 				{
-					path: 'login-username',
-					name: 'Login',
-					component: () => import('../views/auth/LoginEmail.vue'),
-				},
-				{
 					path: 'login',
 					name: 'Login',
 					component: () => import('../views/auth/Login.vue'),
