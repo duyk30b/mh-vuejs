@@ -1,40 +1,28 @@
 <template>
-	<div class="wrapper">
-		<div class="sidebar">
-			<SidebarTop />
-			<TreeMenu />
-		</div>
-		<div class="main">
-			<HeaderTop />
-			<MainContent />
-		</div>
-	</div>
+	<v-app>
+		<Appbar v-model:showDrawer="showDrawer" />
+		<Drawer v-model:showDrawer="showDrawer" :toggerDrawer="toggerDrawer" />
+
+		<v-main>
+			<v-card-text>
+				The navigation drawer will appear from the bottom on smaller size screens.
+			</v-card-text>
+		</v-main>
+	</v-app>
 </template>
 
 <script lang="ts">
-import HeaderTop from './HeaderTop.vue'
-import TreeMenu from './TreeMenu.vue'
-import SidebarTop from './SidebarTop.vue'
-import MainContent from './MainContent.vue'
+import { ref } from 'vue'
+import Appbar from './Appbar.vue'
+import Drawer from './Drawer.vue'
 
-export default { components: { HeaderTop, TreeMenu, SidebarTop, MainContent } }
-</script>
-<style lang="scss" scoped>
-.wrapper {
-	display: flex;
-	height: 100vh;
-
-	.sidebar {
-		width: 300px;
-		display: flex;
-		flex-direction: column;
-	}
-
-	.main {
-		flex: 1;
-		display: flex;
-		flex-direction: column;
-		min-height: 100vh;
-	}
+export default {
+	components: { Drawer, Appbar },
+	setup() {
+		return {
+			toggerDrawer: ref(true),
+			showDrawer: ref(true),
+		}
+	},
 }
-</style>
+</script>

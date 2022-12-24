@@ -1,3 +1,3 @@
-const CONFIG = { API_URL: 'https://medihome.ga' }
+const CONFIG = { API_URL: 'https://api.medihome.vn' }
 
 export default CONFIG

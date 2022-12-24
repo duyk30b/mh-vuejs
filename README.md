@@ -8,3 +8,9 @@ Now, access: http://127.0.0.1:5173/
 
 # Settings Live Server
 - Change path key and cert in ./.vscode/settings.json
+
+# Deploy to firebase
+
+```
+npm run build
+```

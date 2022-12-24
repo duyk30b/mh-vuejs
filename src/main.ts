@@ -7,7 +7,6 @@ import * as directives from 'vuetify/directives'
 import { aliases, mdi } from 'vuetify/iconsets/mdi'
 import 'vuetify/styles'
 import App from './App.vue'
-import './assets/styles/main.scss'
 import router from './router'
 
 const vuetify = createVuetify({
