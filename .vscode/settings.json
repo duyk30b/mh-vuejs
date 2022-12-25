@@ -2,7 +2,7 @@
 	"files.autoSave": "afterDelay",
 	"files.eol": "\n",
 	"workbench.tree.indent": 16,
-	"editor.tabSize": 4,
+	"editor.tabSize": 2,
 	"liveServer.settings.port": 5501,
 	"liveServer.settings.root": "/dist/",
 	"liveServer.settings.CustomBrowser": "chrome",
@@ -11,5 +11,12 @@
 		"key": "/Users/duyk3/.vscode/https/key.pem",
 		"cert": "/Users/duyk3/.vscode/https/cert.pem",
 		"passphrase": ""
-	}
+	},
+	"cSpell.words": [
+		"Axios",
+		"iconsets",
+		"materialdesignicons",
+		"pinia",
+		"vuetify"
+	]
 }

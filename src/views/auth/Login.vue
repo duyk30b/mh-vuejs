@@ -5,27 +5,31 @@
 				<v-row justify="center">
 					<v-col sm="12" md="8" lg="6">
 						<v-card elevation="6">
-							<v-toolbar dark color="indigo-darken-2">
+							<v-toolbar dark color="primary">
 								<v-toolbar-title>Đăng nhập</v-toolbar-title>
 							</v-toolbar>
 							<v-card-text>
 								<v-form class="mt-4">
-									<v-text-field v-model="cPhone" prepend-icon="mdi-phone-dial" color="indigo-darken-2"
+									<v-text-field v-model="cPhone" prepend-icon="mdi-phone-dial" color="primary"
 										label="SĐT Phòng khám" variant="underlined">
 									</v-text-field>
-									<v-text-field v-model="username" prepend-icon="mdi-account" label="Tên tài khoản"
-										variant="underlined">
+									<v-text-field v-model="username" prepend-icon="mdi-account" color="primary"
+										label="Tên tài khoản" variant="underlined">
 									</v-text-field>
-									<v-text-field v-model="password" prepend-icon="mdi-lock" label="Mật khẩu"
-										variant="underlined" type="password">
+									<v-text-field v-model="password" prepend-icon="mdi-lock" color="primary"
+										label="Mật khẩu" variant="underlined"
+										:type="passwordVisible ? 'text' : 'password'"
+										:append-inner-icon="passwordVisible ? 'mdi-eye-off' : 'mdi-eye'"
+										@click:append-inner="passwordVisible = !passwordVisible">
 									</v-text-field>
 									<div class="d-flex justify-end">
 										<v-btn @click="startLogin" :loading="signInLoading"
-											prepend-icon="mdi-login-variant" color="indigo-darken-2"> Đăng nhập
+											prepend-icon="mdi-login-variant" color="primary"> Đăng nhập
 										</v-btn>
 									</div>
 									<p class="mt-6">Bạn chưa có tài khoản phòng khám ?
-										<v-btn size="small" variant="outlined" @click="$router.push({ name: 'Register' })">
+										<v-btn size="small" variant="outlined"
+											@click="$router.push({ name: 'Register' })">
 											Đăng ký tại đây
 										</v-btn>
 									</p>
@@ -54,6 +58,7 @@ export default {
 		const cPhone = ref('0986021190')
 		const username = ref('admin')
 		const password = ref('Abc@123456')
+		const passwordVisible = ref(false)
 
 		const signInLoading = ref(false)
 		const errorMessage = ref('')
@@ -79,7 +84,7 @@ export default {
 				signInLoading.value = false
 			}
 		}
-		return { cPhone, username, password, startLogin, signInLoading, errorMessage, alert }
+		return { cPhone, username, password, passwordVisible, startLogin, signInLoading, errorMessage, alert }
 	},
 }
 </script>

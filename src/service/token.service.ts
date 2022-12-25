@@ -29,9 +29,7 @@ class Tokens {
 	updateStorageTokens() {
 		localStorage.setItem(AUTH_TOKENS, JSON.stringify({
 			accessToken: this.accessToken,
-			refressToken: this.refreshToken,
-			accessExp: this.accessExp,
-			refreshExp: this.refreshExp,
+			refreshToken: this.refreshToken,
 		}))
 	}
 

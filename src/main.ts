@@ -17,6 +17,10 @@ const vuetify = createVuetify({
 		aliases,
 		sets: { mdi },
 	},
+	theme: {
+		defaultTheme: 'myCustomTheme',
+		themes: { myCustomTheme: { colors: { primary: '#303f9f' } } },
+	},
 })
 
 const app = createApp(App)

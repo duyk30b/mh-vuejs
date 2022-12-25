@@ -32,7 +32,7 @@ module.exports = {
 				ignoreStrings: true,
 			},
 		],
-		'indent': [1, 'tab', { ignoredNodes: ['PropertyDefinition'] }],
+		// 'indent': [1, 'tab', { ignoredNodes: ['PropertyDefinition'] }],
 		'semi': [1, 'never'],                                                     // dấu ; cuối dòng
 		'quotes': [1, 'single', { allowTemplateLiterals: true }],
 		'quote-props': [1, 'consistent-as-needed'],                               // dấu quote ở key của object -> dùng 1 cách nhất quán

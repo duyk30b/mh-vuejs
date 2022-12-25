@@ -1,32 +1,43 @@
 <template>
-	<v-navigation-drawer :model-value="showDrawer" @update:modelValue="$emit('update:showDrawer')">
-		<v-divider></v-divider>
-		<v-list density="compact" nav>
-			<v-list-subheader>Quản Lý Dữ Liệu Cá Nhân</v-list-subheader>
-			<v-list-item title="Thông tin cá nhân" prepend-icon="mdi-account" value="user-info"></v-list-item>
-			<v-list-item title="Đơn thuốc" prepend-icon="mdi-text-box-edit-outline" value="don-thuoc"></v-list-item>
-			<v-list-item title="Nhập thuốc" prepend-icon="mdi-cart-outline" value="nhap-thuoc"></v-list-item>
-
-			<v-list-subheader>Quản Lý Phòng Khám</v-list-subheader>
-			<v-list-item title="Bệnh Nhân" prepend-icon="mdi-bed" value="all-patiefnt"></v-list-item>
-			<v-list-item title="Lượt Khám Bệnh" prepend-icon="mdi-medication-outline"
-				value="all-luo4tkham"></v-list-item>
-			<v-list-item title="Phiếu Nhập Thuốc" prepend-icon="mdi-cart-outline"
-				value="all-p23hieu-nhap"></v-list-item>
-			<v-list-item title="Đơn Thuốc" prepend-icon="mdi-text-box-edit-outline"
-				value="all-don-tshhuoc"></v-list-item>
-			<v-list-item title="Tủ Thuốc" prepend-icon="mdi-store" value="all-tu-thuoư3c"></v-list-item>
-			<v-list-item title="Nhân Viên" prepend-icon="mdi-account-multiple" value="all-nhans-vien"></v-list-item>
-			<v-list-item title="Quản Lý Tài Chính" prepend-icon="mdi-chart-areaspline" value="tai-chinh"></v-list-item>
-
-			<v-list-subheader>Quản Lý Khác</v-list-subheader>
-			<v-list-item title="Quản Lý Thông Báo" prepend-icon="mdi-volume-high" value="d-chinh"></v-list-item>
-			<v-list-item title="Cài Đặt Phòng Khám" prepend-icon="mdi-cog-outline" value="taisdf-chinh"></v-list-item>
-		</v-list>
-	</v-navigation-drawer>
+  <v-navigation-drawer :model-value="showDrawer" @update:modelValue="(val) => $emit('update:showDrawer', val)">
+    <v-divider></v-divider>
+    <v-list density="compact" nav>
+      <template v-for="(item, i) in menuItems" :key="i">
+        <v-list-subheader v-if="item.subtitle">{{ item.subtitle }}</v-list-subheader>
+        <v-list-item v-if="item.title" :value="item" :title="item.title" :prepend-icon="item.icon" :to="item.router"
+          active-color="primary">
+        </v-list-item>
+      </template>
+    </v-list>
+  </v-navigation-drawer>
 </template>
 <script lang="ts">
-export default { props: ['toggerDrawer', 'showDrawer'] }
+export default {
+	props: ['showDrawer'],
+	data: () => {
+		return {
+			menuItems: [
+				{ subtitle: 'Quản Lý Dữ Liệu Cá Nhân' },
+				{ title: 'Thông tin cá nhân', icon: 'mdi-account', router: { name: 'UserInfo' } },
+				{ title: 'Đơn thuốc', icon: 'mdi-text-box-edit-outline', router: { name: 'UserPrescription' } },
+				{ title: 'Nhập thuốc', icon: 'mdi-cart-outline', router: { name: 'UserMedicineReceipt' } },
+
+				{ subtitle: 'Quản Lý Phòng Khám' },
+				{ title: 'Bệnh nhân', icon: 'mdi-bed', router: { name: 'ClinicPatient' } },
+				{ title: 'Lượt Khám Bệnh', icon: 'mdi-account', router: { name: 'Admission' } },
+				{ title: 'Đơn thuốc', icon: 'mdi-text-box-edit-outline', router: { name: 'ClinicPrescription' } },
+				{ title: 'Nhập thuốc', icon: 'mdi-cart-outline', router: { name: 'ClinicMedicineReceipt' } },
+				{ title: 'Tủ Thuốc', icon: 'mdi-store', router: { name: 'Warehouse' } },
+				{ title: 'Nhân Viên', icon: 'mdi-account-multiple', router: { name: 'Employee' } },
+				{ title: 'Quản Lý Tài Chính', icon: 'mdi-chart-areaspline', router: { name: 'Finance' } },
+
+				{ subtitle: 'Cài đặt Khác' },
+				{ title: 'Quản Lý Thông Báo', icon: 'mdi-volume-high', router: { name: 'MessageSetting' } },
+				{ title: 'Cài Đặt Phòng Khám', icon: 'mdi-cog-outline', router: { name: 'ClinicSetting' } },
+			],
+		}
+	},
+}
 </script>
 <style lang="scss" scoped>
 

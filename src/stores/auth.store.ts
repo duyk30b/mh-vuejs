@@ -26,7 +26,7 @@ type RegisterDto = {
 
 export const useAuthStore = defineStore('auth-store', {
 	state: () => ({
-		userInfo: TokenService.getDataAccessToken(),
+		userInfo: TokenService.getDataAccessToken() as UserInfo,
 		error: null,
 	}),
 	actions: {

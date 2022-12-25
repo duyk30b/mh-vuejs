@@ -1,5 +1,5 @@
 <template>
-	<v-app-bar elevation="1">
+	<v-app-bar elevation="1" color="primary">
 		<v-app-bar-nav-icon :icon="showDrawer ? 'mdi-format-indent-decrease' : 'mdi-format-indent-increase'"
 			variant="text" @click.stop="$emit('update:showDrawer', !showDrawer)">
 		</v-app-bar-nav-icon>
@@ -40,7 +40,7 @@
 
 		<v-menu min-width="200px" rounded>
 			<template v-slot:activator="{ props }">
-				<v-btn icon v-bind="props" class="ml-4">
+				<v-btn icon v-bind="props" class="mx-5">
 					<v-avatar color="brown" size="large">
 						<v-img src="https://randomuser.me/api/portraits/men/9.jpg" alt="John"></v-img>
 					</v-avatar>
@@ -80,11 +80,6 @@ export default {
 			startLogout,
 			messageBadge: ref(5),
 			alertBadge: ref(10),
-			user: {
-				initials: 'JD',
-				fullName: 'John Doe',
-				email: 'john.doe@doe.com',
-			},
 		}
 	},
 }
