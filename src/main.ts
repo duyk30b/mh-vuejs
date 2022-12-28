@@ -8,25 +8,32 @@ import { aliases, mdi } from 'vuetify/iconsets/mdi'
 import 'vuetify/styles'
 import App from './App.vue'
 import router from './router'
+import TokensService from './service/tokens.service'
 
-const vuetify = createVuetify({
-	components,
-	directives,
-	icons: {
-		defaultSet: 'mdi',
-		aliases,
-		sets: { mdi },
-	},
-	theme: {
-		defaultTheme: 'myCustomTheme',
-		themes: { myCustomTheme: { colors: { primary: '#303f9f' } } },
-	},
-})
+const start = async () => {
+	await TokensService.init()
 
-const app = createApp(App)
+	const vuetify = createVuetify({
+		components,
+		directives,
+		icons: {
+			defaultSet: 'mdi',
+			aliases,
+			sets: { mdi },
+		},
+		theme: {
+			defaultTheme: 'myCustomTheme',
+			themes: { myCustomTheme: { colors: { primary: '#303f9f' } } },
+		},
+	})
 
-app.use(vuetify)
-app.use(createPinia())
-app.use(router)
+	const app = createApp(App)
 
-app.mount('#app')
+	app.use(vuetify)
+	app.use(createPinia())
+	app.use(router)
+
+	app.mount('#app')
+}
+
+start()

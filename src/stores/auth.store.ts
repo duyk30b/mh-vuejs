@@ -1,15 +1,8 @@
 import CONFIG from '@/config'
 import axios from 'axios'
 import { defineStore } from 'pinia'
-import TokenService from '../service/token.service'
-import type { IAuthTokens } from '../service/token.service'
-
-export type UserInfo = {
-	username: string;
-	role: string;
-	uid: number;
-	cid: number;
-} | null
+import type { IAuthTokens } from '../service/tokens.service'
+import TokensService from '../service/tokens.service'
 
 type LoginDto = {
 	cPhone: string;
@@ -25,40 +18,23 @@ type RegisterDto = {
 }
 
 export const useAuthStore = defineStore('auth-store', {
-	state: () => ({
-		userInfo: TokenService.getDataAccessToken() as UserInfo,
-		error: null,
-	}),
+	state: () => ({ userInfo: TokensService.tokenData }),
 	actions: {
 		async login(credentials: LoginDto) {
-			try {
-				const response = await axios.post(`${CONFIG.API_URL}/auth/login`, credentials)
-				const data = response.data as IAuthTokens
-				TokenService.setTokens(data)
-				this.userInfo = TokenService.getDataAccessToken()
-				this.error = null
-			} catch (error: any) {
-				this.userInfo = null
-				this.error = error.response.data
-				throw new Error(error.response.data.message)
-			}
+			const response = await axios.post(`${CONFIG.API_URL}/auth/login`, credentials)
+			const data = response.data as IAuthTokens
+			TokensService.setTokens(data)
+			this.userInfo = TokensService.tokenData
 		},
 
 		async register(credentials: RegisterDto) {
-			try {
-				const response = await axios.post(`${CONFIG.API_URL}/auth/register`, credentials)
-				const data = response.data as IAuthTokens
-				TokenService.setTokens(data)
-				this.userInfo = TokenService.getDataAccessToken()
-				this.error = null
-			} catch (error: any) {
-				this.userInfo = null
-				this.error = error.response.data
-				throw new Error(error.response.data.message)
-			}
+			const response = await axios.post(`${CONFIG.API_URL}/auth/register`, credentials)
+			const data = response.data as IAuthTokens
+			TokensService.setTokens(data)
+			this.userInfo = TokensService.tokenData
 		},
 		async logout() {
-			TokenService.destroyTokens()
+			TokensService.destroyTokens()
 			this.userInfo = null
 		},
 	},

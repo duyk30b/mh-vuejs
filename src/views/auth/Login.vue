@@ -75,6 +75,7 @@ export default {
 				})
 				router.push({ name: 'Dashboard', params: {} })
 			} catch (error: any) {
+				console.log('🚀 ~ file: Login.vue:78 ~ startLogin ~ error', error)
 				errorMessage.value = error.message
 				alert.value = true
 				setTimeout(() => {
