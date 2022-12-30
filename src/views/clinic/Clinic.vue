@@ -1,7 +1,9 @@
 <template>
   <v-app>
     <AppBar v-model:showDrawer="showDrawer" />
-    <Drawer v-model:showDrawer="showDrawer" />
+    <Suspense>
+      <Drawer v-model:showDrawer="showDrawer" />
+    </Suspense>
 
     <v-main>
       <RouterView />

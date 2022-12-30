@@ -23,7 +23,15 @@ const start = async () => {
 		},
 		theme: {
 			defaultTheme: 'myCustomTheme',
-			themes: { myCustomTheme: { colors: { primary: '#303f9f' } } },
+			themes: {
+				myCustomTheme: {
+					colors: {
+						primary: '#375e97',
+						secondary: '#fb6542',
+						accent: '#82B1FF',
+					},
+				},
+			},
 		},
 	})
 

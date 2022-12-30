@@ -73,7 +73,7 @@ export default {
 					username: username.value,
 					password: password.value,
 				})
-				router.push({ name: 'Dashboard', params: {} })
+				router.push({ name: 'Clinic', params: {} })
 			} catch (error: any) {
 				console.log('🚀 ~ file: Login.vue:78 ~ startLogin ~ error', error)
 				errorMessage.value = error.message

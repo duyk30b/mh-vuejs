@@ -1,12 +1,13 @@
 <template lang="">
   <v-card
     prepend-icon="mdi-account-multiple"
-    title="Quản lý nhân viên"
     elevation="0"
+    :loading="loadingComponent"
   >
-    <v-card-item class="d-flex justify-end">
-      <v-btn variant="outlined" color="primary"> Thêm nhân viên mới </v-btn>
-    </v-card-item>
+    <template v-slot:title>
+        Quản lý nhân viên
+        <v-btn class="ml-5" variant="flat" size="small" color="primary"> Thêm nhân viên mới </v-btn>
+    </template>
     <v-card-item>
       <v-table>
         <thead>
@@ -23,10 +24,10 @@
             <td>{{ employee.fullName }}</td>
             <td>{{ timeToText(employee.createdAt, "DD-MM-YYYY") }}</td>
             <td>
-              <v-btn variant="outlined" color="primary" size="small">
+              <v-btn variant="flat" color="primary" size="small">
                 Sửa
               </v-btn>
-              <v-btn variant="outlined" color="error" size="small" class="ml-1">
+              <v-btn variant="flat" color="error" size="small" class="ml-1">
                 Xoá
                 <v-dialog v-model="dialogDelete" activator="parent" max-width="500">
                   <v-card style="margin-top: -300px">
@@ -67,10 +68,12 @@ interface Employee {
 export default {
   setup() {
     const employeeList = ref([] as Employee[])
+    const loadingComponent = ref(true)
     AxiosService.get('/employee').then((res) => {
       employeeList.value = res.data as Employee[]
+      loadingComponent.value = false
     })
-    return { employeeList, timeToText, dialogDelete: ref(false) }
+    return { employeeList, timeToText, dialogDelete: ref(false), loadingComponent }
   },
   methods: {
     removeEmployee(id: number) {
