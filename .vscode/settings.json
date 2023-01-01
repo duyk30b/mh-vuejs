@@ -18,5 +18,10 @@
 		"materialdesignicons",
 		"pinia",
 		"vuetify"
+	],
+	"eslint.validate": [
+		"javascript",
+		"javascriptreact",
+		"vue"
 	]
 }

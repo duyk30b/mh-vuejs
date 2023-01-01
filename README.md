@@ -10,7 +10,10 @@ Now, access: http://127.0.0.1:5173/
 - Change path key and cert in ./.vscode/settings.json
 
 # Deploy to firebase
-
 ```
+npm install -g firebase-tools
+firebase login
+firebase init
 npm run build
+firebase deploy
 ```

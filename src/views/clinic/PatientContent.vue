@@ -4,9 +4,8 @@
 	</div>
 </template>
 <script lang="ts">
-import { useRoute } from 'vue-router'
 import { ref, watch } from 'vue'
-import AxiosService from '@/service/axios.service'
+import { useRoute } from 'vue-router'
 
 export default {
   setup() {

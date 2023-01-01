@@ -7,13 +7,6 @@
     <v-app-bar-title>MEDIHOME</v-app-bar-title>
 
     <v-spacer>
-      <v-btn variant="flat" color="secondary" rounded="pill" @click="$router.push({ name: 'Clinic', params: {} })">
-        Phòng Khám
-      </v-btn>
-      <v-btn variant="outlined" rounded="pill" @click="$router.push({ name: 'Pharmacy', params: {} })"
-        class="ml-5">
-        Phòng Thuốc
-      </v-btn>
     </v-spacer>
 
     <v-menu>
@@ -56,6 +49,14 @@
       </template>
       <v-card>
         <v-card-text>
+          <v-btn rounded variant="text" @click="$router.push({ name: 'Clinic', params: {} })">
+            Phòng khám
+          </v-btn>
+          <v-divider class="my-3"></v-divider>
+          <v-btn rounded variant="text" @click="$router.push({ name: 'Pharmacy', params: {} })">
+            Nhà thuốc
+          </v-btn>
+          <v-divider class="my-3"></v-divider>
           <v-btn rounded variant="text" @click="$router.push({ name: 'Dashboard', params: {} })">
             Quản lý tài khoản
           </v-btn>

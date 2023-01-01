@@ -14,7 +14,8 @@
           <tr>
             <th class="text-left">Username</th>
             <th class="text-left">Họ Tên</th>
-            <th class="text-left">Ngày Tạo</th>
+            <th class="text-left">SĐT</th>
+            <th class="text-left">Ngày Sinh</th>
             <th></th>
           </tr>
         </thead>
@@ -22,7 +23,8 @@
           <tr v-for="(employee, index) in employeeList" :key="index">
             <td>{{ employee.username }}</td>
             <td>{{ employee.fullName }}</td>
-            <td>{{ timeToText(employee.createdAt, "DD-MM-YYYY") }}</td>
+            <td>{{ employee.phone }}</td>
+            <td>{{ timeToText(employee.birthday, "DD-MM-YYYY") }}</td>
             <td>
               <v-btn variant="flat" color="primary" size="small">
                 Sửa
@@ -60,8 +62,10 @@ import { timeToText } from '@/utils/formatters/time.formatter'
 
 interface Employee {
   id: number;
-  fullName: string;
   username: string;
+  fullName: string;
+  phone: string;
+  birthday: string;
   createdAt: string;
 }
 

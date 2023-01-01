@@ -7,8 +7,10 @@ import * as directives from 'vuetify/directives'
 import { aliases, mdi } from 'vuetify/iconsets/mdi'
 import 'vuetify/styles'
 import App from './App.vue'
+import './assets/main.scss'
 import router from './router'
 import TokensService from './service/tokens.service'
+import { registerDirective } from './utils/vue-config/directive'
 
 const start = async () => {
 	await TokensService.init()
@@ -37,6 +39,7 @@ const start = async () => {
 
 	const app = createApp(App)
 
+	registerDirective(app)
 	app.use(vuetify)
 	app.use(createPinia())
 	app.use(router)

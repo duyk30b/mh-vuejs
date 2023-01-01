@@ -10,8 +10,8 @@
     </v-list>
 
     <v-list density="compact" nav>
+      <v-list-subheader>Bệnh nhân khám trong ngày</v-list-subheader>
       <template v-for="(item, i) in menuItems" :key="i">
-        <v-list-subheader v-if="item.subtitle">{{ item.subtitle }}</v-list-subheader>
         <v-list-item v-if="item.title" :value="item" :title="item.title" :prepend-icon="item.icon" :to="item.router"
           active-color="primary">
         </v-list-item>
@@ -21,22 +21,31 @@
 </template>
 
 <script lang="ts">
-import ModalPatientInfo from './ModalPatientInfo.vue'
+import ModalPatientInfo from '../../components/ModalPatientInfo.vue'
+import AxiosService from '@/service/axios.service'
+import type { Patient } from '@/type/Patient'
+import { ref } from 'vue'
 
 export default {
   components: { ModalPatientInfo },
   props: ['showDrawer'],
   async setup() {
-    return {
-      menuItems: [
-        { subtitle: 'Bệnh nhân khám trong ngày' },
-        { title: 'Nguyễn Văn Trung', icon: 'mdi-account', router: { name: 'ClinicPatientInfo', params: { id: 1 } } },
-        { title: 'Nguyễn Văn Khanh', icon: 'mdi-account', router: { name: 'ClinicPatientInfo', params: { id: 2 } } },
-        { title: 'Lê Kiều Trang', icon: 'mdi-account', router: { name: 'ClinicPatientInfo', params: { id: 3 } } },
-        { title: 'Phạm Hoàng Mai', icon: 'mdi-account', router: { name: 'ClinicPatientInfo', params: { id: 4 } } },
-        { title: 'Trần Tuyết Trinh', icon: 'mdi-account', router: { name: 'ClinicPatientInfo', params: { id: 5 } } },
-      ],
-    }
+    return { menuItems: ref<any[]>([]) }
+  },
+  mounted() {
+    this.getPatientsData()
+  },
+  methods: {
+    async getPatientsData() {
+      const res = await AxiosService.get('/patient')
+      this.menuItems = res.data.slice(0, 50).map((item: any) => {
+        return {
+          title: item.fullName,
+          icon: item.gender === 'Male' ? 'mdi-face-man' : 'mdi-face-woman-shimmer',
+          router: { name: 'ClinicPatientInfo', params: { id: item.id } },
+        }
+      })
+    },
   },
 }
 </script>

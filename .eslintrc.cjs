@@ -14,7 +14,15 @@ module.exports = {
 			extends: ['plugin:cypress/recommended'],
 		},
 	],
-	parserOptions: { ecmaVersion: 'latest' },
+	parser: 'vue-eslint-parser',
+	parserOptions: {
+		ecmaVersion: 'latest',
+		vueFeatures: {
+			filter: true,
+			interpolationAsNonHTML: false,
+		},
+		sourceType: 'module',
+	},
 	rules: {
 		'no-console': 0,
 		'no-tabs': 0,                                                             // không cho sử dụng tab

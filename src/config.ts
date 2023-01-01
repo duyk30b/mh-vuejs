@@ -1,6 +1,6 @@
 const CONFIG = {
 	API_URL: 'https://api.medihome.vn',
-	// API_URL: 'http://localhost:7200',
+	// API_URL: 'http://localhost:7100',
 	TOKENS: {
 		KEY: 'AUTH_TOKENS',
 		ACCESS_DEDUCT: 10,
